@@ -5,7 +5,10 @@
     ],
     "pi": {
         "extensions": [
-            "./extensions"
+            "./extensions",
+            "node_modules/@gotgenes/pi-permission-system/src/index.ts",
+            "node_modules/pi-simplify/dist/index.js",
+            "node_modules/pi-web-access/index.ts"
         ],
         "skills": [
             "./skills"
@@ -17,6 +20,16 @@
             "./themes"
         ]
     },
+    "dependencies": {
+        "@gotgenes/pi-permission-system": "^24.0.0",
+        "pi-simplify": "^0.2.3",
+        "pi-web-access": "^0.15.0"
+    },
+    "bundledDependencies": [
+        "@gotgenes/pi-permission-system",
+        "pi-simplify",
+        "pi-web-access"
+    ],
     "peerDependencies": {
         "@earendil-works/pi-coding-agent": "*",
         "@earendil-works/pi-tui": "*",
