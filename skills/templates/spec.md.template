@@ -1,0 +1,78 @@
+# <Topic>
+
+**Date:** YYYY-MM-DD
+**Tier:** Light | Medium | Deep
+**Status:** Draft
+
+## Problem
+
+What is broken, missing, or annoying today. Concrete, not aspirational. If there is a
+triggering incident, a support ticket, or a manual workaround being repeated, name it.
+
+## Goals
+
+What this must achieve, as a short list. Each goal should be checkable — someone reading
+the finished implementation should be able to say yes or no to each one.
+
+## Non-goals
+
+What is deliberately excluded, each with its reason. This section exists so cut scope does
+not creep back in three weeks later. Include everything YAGNI'd during the interview.
+
+- <Thing not being built> — <why not, or what would have to change to justify it>
+
+## Constraints
+
+Existing systems that cannot change, compatibility requirements, deadlines, dependency
+limits, operational constraints, code that must not be touched.
+
+## Chosen approach
+
+How it works, in enough detail that someone could start building without asking follow-up
+questions.
+
+### Alternatives rejected
+
+For each alternative that was seriously considered: what it was, and the specific reason
+it lost. Future readers will propose these again — this section answers them.
+
+- **<Alternative>** — <why it was rejected>
+
+## Components and interfaces
+
+Each unit: what it does, its interface, what it depends on. Boundaries should be clear
+enough that units can be built and tested independently.
+
+## Data flow
+
+How data moves through the system. Sources, transformations, destinations, and where state
+lives. A diagram is welcome if it beats the prose.
+
+{{DOMAIN_SPECIFIC_SECTIONS}}
+
+## Error handling
+
+What can fail, how each failure is detected, what the system does in response, and what the
+user sees. Include partial-failure and retry behaviour where relevant.
+
+## Testing strategy
+
+What gets tested and at what level. Name the cases that actually matter — including the
+edge cases surfaced during the interview — rather than asserting that coverage will be
+good.
+
+{{VERIFICATION_NOTE}}
+
+## Open questions
+
+Anything genuinely undecided, with who decides and by when. An empty section is the
+expected outcome; if this list is long, the spec is not finished.
+
+## Decision log
+
+Decisions made during the design conversation that are not obvious from the sections
+above, so they do not get relitigated.
+
+| Decision | Reasoning |
+| --- | --- |
+| <what was decided> | <why> |

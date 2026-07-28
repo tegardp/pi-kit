@@ -1,0 +1,94 @@
+# <Feature>
+
+**Date:** YYYY-MM-DD
+**Spec:** `{{SPEC_DIR}}<spec-filename>.md`
+**Status:** Ready to execute
+
+## Global constraints
+
+Requirements that apply to every task, copied verbatim from the spec. Tasks are read in
+isolation, so anything project-wide belongs here and not in Task 1.
+
+- <version floor, naming rule, target, or convention>
+
+## File structure
+
+| File | Responsibility | Task |
+| --- | --- | --- |
+| `<path>` | <one clear responsibility> | 1 |
+
+---
+
+## Task 1 — <deliverable, stated as a working thing>
+
+<One or two sentences: what exists after this task that did not exist before.>
+
+{{RISK_FIELDS}}
+
+**Files:** `<path>` (new), `<path>` (modified)
+
+### Steps
+
+1. <single action, two to five minutes, showing how and not just what>
+2. ...
+
+### Gate 1 — Static
+
+```
+<exact command>
+```
+
+Expected: <exact expected output or exit condition>
+
+### Gate 2 — Predict, then run
+
+```
+<exact command>
+```
+
+**Before implementing** — expected: <the specific named failure>
+
+**After implementing** — expected: <the specific named success>
+
+If the output differs from either prediction, stop and report. Do not proceed on a
+divergent result.
+
+### Gate 3 — Prove it, then prove you broke nothing
+
+```
+<exact command asserting the thing works from outside>
+```
+
+Expected: <exact output>
+
+```
+<exact command re-checking the wider system>
+```
+
+Expected: <exact output confirming nothing else changed or broke>
+
+### Commit
+
+```bash
+git add <paths>
+git commit -m "<type>(<scope>): <description>"
+```
+
+---
+
+## Task 2 — <deliverable>
+
+<Repeat the full block. Never write "same as Task 1" — tasks are read out of order.>
+
+---
+
+## Feature-level verification
+
+After every task, the checks that prove the feature as a whole works, not just its parts.
+Name the commands and the expected output.
+
+{{FEATURE_ROLLBACK}}
+
+---
+
+{{WORKED_EXAMPLE_NOTE}}

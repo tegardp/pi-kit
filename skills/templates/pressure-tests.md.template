@@ -1,0 +1,23 @@
+# Pressure tests — {{DOMAIN_NAME}}
+
+**Last run:** never
+
+These skills enforce discipline, and discipline holds until someone leans on it. Run each
+in a **fresh session** with the skill installed. A session that just wrote the skill will
+pass by accident.
+
+{{EVAL_PROMPTS}}
+
+## Reading the results
+
+A failure is the skill's fault, not the agent's. When one fails, capture the exact wording
+the agent used to justify itself and add it to the `Rationalizations` table as a new row.
+That verbatim phrasing is worth more than anything you'd invent — it's the loophole that
+actually exists.
+
+Re-run after editing. A rule that survives three pressure prompts is worth trusting; one
+that has never been pushed on is a hypothesis.
+
+Update **Last run** to today's date once you've actually run all three, pass or fail — it's
+the one signal that tells a later reader (or `/skill:project-init`, on a re-run) whether this
+skill's discipline claims were ever tested or are still just asserted.

@@ -1,0 +1,158 @@
+---
+name: brainstorm
+description: {{DESCRIPTION}}
+generated-from: custom@{{PLUGIN_VERSION}}
+---
+
+# Brainstorm — {{DOMAIN_NAME}}
+
+Turn a rough {{DOMAIN_NOUN}} idea into an unambiguous, committed spec through
+one-question-at-a-time dialogue. The spec is the deliverable; implementation is a separate
+session.
+
+## The one hard rule
+
+Write no code, scaffold nothing, install nothing, create no file but the spec, until the
+user approves a design you presented in conversation.
+
+This holds however small the task looks. Small tasks are exactly where an unexamined
+assumption survives to the end and costs a rewrite. If it really is small, the tier logic
+makes the process short — that is the mechanism for handling simplicity, not skipping it.
+
+### Rationalizations
+
+{{RATIONALIZATIONS}}
+
+**Red flags — stop:**
+
+{{RED_FLAGS}}
+
+Violating the letter of this rule violates its spirit.
+
+## Step 1 — Read the ground
+
+Check `.pi/skills/_recon.md` first. If present and its named config file hasn't
+changed since, take stack, verify command, and commit convention from it instead of
+re-deriving them. If it's missing, or that file has changed, do the recon below in full —
+don't block on the cache being stale, just don't trust it.
+
+{{RECON_STEPS}}
+
+Also: `git log --oneline -20`, and existing specs in `{{SPEC_DIR}}` — a related one may
+answer half your questions. These two change every run and are cheap; read them fresh even
+when the cache is good.
+
+Questions you could have answered by reading are wasted questions.
+
+## Step 2 — Decomposition guard
+
+Before assigning a tier, ask whether this is one project or several. Signals it is several:
+
+{{DECOMP_SIGNALS}}
+
+If it decomposes, say so immediately, propose the split and a build order, and offer to
+brainstorm the first piece. Don't refine details of something that should be three specs —
+they'll be rewritten once the boundaries move.
+
+## Step 3 — State the tier
+
+State the tier and the reason in one line before the first question. The user can override
+by saying so; take it without arguing.
+
+**Light** — 3-5 questions, no approaches. {{TIER_LIGHT_CRITERIA}}
+
+**Medium** — 6-10 questions, then 2-3 approaches. {{TIER_MEDIUM_CRITERIA}}
+
+**Deep** — 10+ questions, approaches, design presented section by section with approval
+after each. {{TIER_DEEP_CRITERIA}}
+
+Tier is an estimate, not a contract. If answers reveal the work is bigger, say so and move up.
+
+## Step 4 — Questions
+
+One per message. Never batch — batched questions get shallow answers, and the third usually
+depends on the first. Multiple choice when the option space is bounded, open when it isn't;
+no fake choices for tidiness.
+
+{{QUESTION_AXES}}
+
+Chase the answer that surprises you. Surprise means your model was wrong, which is worth
+more than the next scripted question.
+
+**Traps this domain sets.** If the design touches one and the user hasn't addressed it,
+ask — even at the cost of an extra question:
+
+{{DOMAIN_TRAPS}}
+
+Apply YAGNI. When a feature serves a hypothetical future case, say so and propose cutting
+it. Cut features go in Non-goals with their reason, so the decision isn't relitigated.
+
+## Step 5 — Approaches (Medium and Deep)
+
+2-3 genuinely different approaches, not one real option flanked by strawmen. Each: how it
+works, what it costs, what it forecloses. Lead with your recommendation and why.
+
+If you can't construct a second credible approach, say that rather than inventing one.
+
+## Step 6 — Present the design
+
+Cover:
+
+{{DESIGN_SECTIONS}}
+
+Scale each section to its actual complexity. Padding a simple section makes the reader
+skim, and skimmed specs hide errors.
+
+Design for isolation: one purpose per unit, a defined interface, testable alone. If a
+consumer must read a unit's internals to use it, the boundary is wrong — fix it before
+writing the spec.
+
+Deep: ask after each section. Light and Medium: present the whole design, ask once.
+
+If something the user says doesn't fit, go back and ask. Being wrong here is cheap.
+
+## Step 7 — Write the spec
+
+Fill every section of `templates/spec.md`.
+
+Path: `{{SPEC_DIR}}YYYY-MM-DD-<kebab-topic>.md`, today's real date. Create the directory if
+absent. On collision append `-2`, `-3`; never overwrite.
+
+## Step 8 — Self-review
+
+- **Placeholders** — any TBD or requirement too vague to implement
+- **Contradictions** — does the architecture match the feature descriptions?
+- **Ambiguity** — could a requirement be read two ways? Pick one, make it explicit
+- **Scope** — one implementation plan, or did it quietly become three?
+- **Verification** — {{VERIFICATION_NOTE}}
+
+Fix inline; don't loop.
+
+## Step 9 — Commit and stop
+
+```bash
+git add {{SPEC_DIR}}<filename>.md
+git commit -m "{{COMMIT_PREFIX}} <topic>"
+```
+
+Stage the spec path explicitly. Never `git add -A` — the working tree may hold unrelated
+work. Not a git repo: write it, say it's uncommitted, continue.
+
+Report the path and stop: "Spec written and committed to `<path>`. Review it and tell me
+what to change — or start a fresh session to implement it."
+
+Don't offer to implement. A fresh session reads the spec cold, which tests whether it's
+complete.
+
+## Failure modes in yourself
+
+**Answering your own question.** "Should this be async? I'd assume yes since..." teaches the
+user to agree with you. Ask, then wait.
+
+**Interviewing to a script.** If answer two makes questions 4-8 irrelevant, drop them.
+
+**Designing during the interview.** Questions gather constraints. Save architecture for
+Step 6, or you'll spend the interview defending a design instead of testing it.
+
+**Spec inflation.** A one-page spec for a one-{{DOMAIN_NOUN}} change isn't thoroughness,
+it's noise that makes the next reader trust specs less.

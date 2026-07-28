@@ -1,0 +1,159 @@
+---
+name: plan
+description: {{PLAN_DESCRIPTION}}
+generated-from: custom@{{PLUGIN_VERSION}}
+---
+
+# Plan — {{DOMAIN_NAME}}
+
+Turn an approved spec into a plan detailed enough that a fresh session with zero context
+executes it task by task without asking questions.
+
+Write for a skilled engineer who knows nothing about this repo or this problem, and who
+reads tasks out of order. Every name, command, and expected output on the page. If a step
+needs knowledge that lives only in this conversation, the plan has failed.
+
+## The one hard rule
+
+Write the plan. Do not implement it. No code beyond what the plan contains, nothing
+installed, nothing run against anything real. Execution is a fresh session — that is the
+only real test of whether the plan is complete.
+
+### Rationalizations
+
+{{RATIONALIZATIONS}}
+
+**Red flags — stop:**
+
+{{RED_FLAGS}}
+
+## Step 1 — Read the spec and the ground
+
+Read the spec in full, then what it touches. Check `.pi/skills/_recon.md` first — if
+present and its named config file hasn't changed since, reuse its stack and verify-command
+facts instead of re-deriving them:
+
+{{RECON_STEPS}}
+
+Also `git log --oneline -20` and existing plans in `{{PLAN_DIR}}`. These change every run;
+read them fresh regardless of the cache.
+
+Spec has unresolved open questions? Surface them and ask — planning around an undecided
+requirement produces tasks that get thrown away. No spec path given? Ask for one. Never
+plan from conversation memory.
+
+Check the spec has every section `templates/spec.md` expects — Problem, Goals, Non-goals,
+Constraints, Chosen approach, Components and interfaces, Data flow, Error handling, Testing
+strategy, Open questions, Decision log — not just that Open questions is empty. A section
+missing outright gets no scrutiny the way a `TBD` inside one would; a hand-written spec can
+omit one silently. A missing section is the same stop as an unresolved question: surface
+it and ask, rather than planning around the gap.
+
+## Step 2 — Scope check
+
+If the spec covers independent subsystems it should have been decomposed during
+brainstorming. If it wasn't, say so and propose one plan per subsystem.
+
+Each plan leaves the system working on its own. A plan whose midpoint leaves the build
+broken isn't decomposed, it's interleaved, and it needs different task boundaries.
+
+## Step 3 — Map files before drawing tasks
+
+List every file to create or modify and its responsibility. Decomposition gets locked in
+here and is expensive to change later.
+
+One responsibility per file. Files that change together live together — split by
+responsibility, not by technical layer. Follow existing repo patterns; targeted splits are
+fine, unrelated refactoring isn't. Prefer focused files: both you and the executing session
+reason better about code that fits in context at once.
+
+## Step 4 — Decompose
+
+A task is the smallest unit carrying its own verification cycle that a reviewer could
+independently reject. Setup, types, config, and docs fold into the task whose deliverable
+needs them. Split only where a reviewer could approve one task and reject its neighbour.
+
+Here specifically: {{TASK_BOUNDARY_RULE}}
+
+Each task ends with something verifiable and a commit. Steps within a task are single
+actions of two to five minutes.
+
+## Verification gates
+
+Three per task. Write actual commands and actual expected output — never "verify it works."
+
+**Gate 1 — Static.** {{GATE_STATIC}}
+
+**Gate 2 — Predict, then run.** {{GATE_PREDICT}}
+
+State what the output should be *before* the task is implemented and after. An
+unimplemented task produces the predicted failure; a correct one produces the predicted
+success. Output differing from either prediction is the finding — the executing session
+stops rather than shrugging and carrying on. A named error at a named location is a
+prediction; "should fail" is not.
+
+**Gate 3 — Prove it, then prove you broke nothing.** {{GATE_CONVERGE}}
+
+The second half is where defects surface and it costs almost nothing. A task that passes
+its own check while breaking a neighbour is how a plan produces a broken system one task at
+a time.
+
+{{RISK_SECTION}}
+
+## Step 5 — Write
+
+Follow `templates/plan.md` exactly. Fill Global Constraints with requirements copied
+verbatim from the spec. Tasks are read in isolation, so project-wide facts belong there,
+not mentioned once in Task 1.
+
+Path: `{{PLAN_DIR}}YYYY-MM-DD-<kebab-feature>.md`, today's real date. Create the directory
+if absent. On collision append `-2`, `-3`; never overwrite.
+
+## No placeholders
+
+Plan failures. Never write:
+
+- "TBD", "TODO", "fill in later"
+- "Add appropriate error handling", "add validation", "handle edge cases"
+- "Write tests for the above" without the actual assertion
+- "Similar to Task 3" — repeat it; tasks are read out of order
+- A step saying what to do without showing how
+- A name referenced but defined in no task
+
+## Step 6 — Self-review
+
+Run this yourself; it is not a dispatch.
+
+1. **Spec coverage** — walk each requirement, point to the task implementing it. Any
+   requirement without a task gets one now.
+2. **Placeholder scan** — search the patterns above.
+3. **Name consistency** — do identifiers, exports, and paths match across tasks? A name
+   defined one way in Task 2 and used another in Task 6 fails at execution time.
+
+Fix inline; don't re-review.
+
+## Step 7 — Commit and stop
+
+```bash
+git add {{PLAN_DIR}}<filename>.md
+git commit -m "{{PLAN_COMMIT_PREFIX}} <feature>"
+```
+
+Stage explicitly; never `git add -A`. Not a git repo: write it, say it's uncommitted,
+continue.
+
+Report the path and stop. Don't offer to execute.
+
+## Failure modes in yourself
+
+**Vague verification.** "Run it and confirm it works" is the commonest failure, because it
+defers the hard thinking to the moment the executing session is least equipped for it.
+Predict the output.
+
+**Layer-shaped tasks.** "Task 1: all the types. Task 2: all the components." None is
+independently verifiable. Slice by deliverable.
+
+**Skipping the second check because the first passed.** The neighbour you broke is the one
+nobody looks at.
+
+**Assuming shared context.** You know the spec; the executing session knows only this file.
