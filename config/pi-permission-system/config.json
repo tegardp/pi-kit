@@ -1,0 +1,42 @@
+{
+  "permission": {
+    "*": "allow",
+    "path": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "**/.ssh/*": "deny",
+      "**/.aws/*": "deny",
+      "**/*.pem": "deny",
+      "**/*_rsa": "deny",
+      "**/*_ed25519": "deny"
+    },
+    "bash": {
+      "*": "ask",
+      "git *": "allow",
+      "npm *": "allow",
+      "npx *": "allow",
+      "pnpm *": "allow",
+      "yarn *": "allow",
+      "node *": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "grep *": "allow",
+      "find *": "allow",
+      "pwd": "allow",
+      "echo *": "allow",
+      "git push --force*": "ask",
+      "git push -f*": "ask",
+      "git reset --hard*": "ask",
+      "git clean -f*": "ask",
+      "rm -rf *": "deny",
+      "sudo *": "ask",
+      "chmod 777 *": "deny",
+      "curl * | sh": "deny",
+      "curl * | bash": "deny",
+      "wget * | sh": "deny"
+    },
+    "external_directory": "ask"
+  }
+}
