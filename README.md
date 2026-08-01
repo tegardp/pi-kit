@@ -17,7 +17,7 @@ pi --version
 ### Install pi-kit
 
 ```bash
-pi add tegardp/pi-kit
+pi install git:github.com/tegardp/pi-kit
 ```
 
 Then restart pi. The package auto-loads everything declared in `package.json` → `pi`:
@@ -25,6 +25,23 @@ skills, agents, themes, and extensions — no further configuration needed.
 
 Verify it loaded by running `/skill:project-init` or checking that `pi-kit-night` appears
 in the theme picker.
+
+### Updating
+
+Already installed pi-kit and want the latest version (new skills, agents, or bundled
+extensions)?
+
+```bash
+pi update git:github.com/tegardp/pi-kit
+```
+
+or update everything you have installed at once:
+
+```bash
+pi update --all
+```
+
+Then restart pi.
 
 ### Local / development install
 
@@ -34,10 +51,10 @@ To work on pi-kit itself, clone it and point pi at the local path instead of the
 git clone https://github.com/tegardp/pi-kit.git
 cd pi-kit
 npm install
-pi add .
+pi install .
 ```
 
-Restart pi to pick up changes after editing.
+Pull latest and run `npm install` again to pick up dependency changes, then restart pi.
 
 ## What's included
 
