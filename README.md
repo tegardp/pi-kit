@@ -52,6 +52,7 @@ Restart pi to pick up changes after editing.
 | `pi-simplify` | extension | — |
 | `pi-web-access` | extension | — |
 | `pi-subagents` | extension | Multi-agent dispatch |
+| `pi-9router-ext` | extension | Connects to a [9router](https://github.com/irfansofyana/pi-9router-ext) AI routing proxy instance |
 
 ## Skills
 

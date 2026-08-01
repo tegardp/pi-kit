@@ -9,7 +9,8 @@
             "node_modules/@gotgenes/pi-permission-system/src/index.ts",
             "node_modules/pi-simplify/dist/index.js",
             "node_modules/pi-web-access/index.ts",
-            "node_modules/@tintinweb/pi-subagents/src/index.ts"
+            "node_modules/@tintinweb/pi-subagents/src/index.ts",
+            "node_modules/pi-9router-ext/src/index.ts"
         ],
         "skills": [
             "./skills"
@@ -21,6 +22,7 @@
     "dependencies": {
         "@gotgenes/pi-permission-system": "^24.0.0",
         "@tintinweb/pi-subagents": "^0.14.3",
+        "pi-9router-ext": "^0.2.3",
         "pi-simplify": "^0.2.3",
         "pi-web-access": "^0.15.0"
     },
@@ -28,7 +30,8 @@
         "@gotgenes/pi-permission-system",
         "pi-simplify",
         "pi-web-access",
-        "@tintinweb/pi-subagents"
+        "@tintinweb/pi-subagents",
+        "pi-9router-ext"
     ],
     "peerDependencies": {
         "@earendil-works/pi-coding-agent": "*",
@@ -39,6 +42,7 @@
         "@gotgenes/pi-permission-system",
         "pi-simplify",
         "pi-web-access",
-        "@tintinweb/pi-subagents"
+        "@tintinweb/pi-subagents",
+        "pi-9router-ext"
     ]
 }
