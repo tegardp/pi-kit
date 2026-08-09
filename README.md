@@ -70,6 +70,12 @@ Pull latest and run `npm install` again to pick up dependency changes, then rest
 | `pi-web-access` | extension | — |
 | `pi-subagents` | extension | Multi-agent dispatch |
 | `pi-9router-ext` | extension | Connects to a [9router](https://github.com/irfansofyana/pi-9router-ext) AI routing proxy instance |
+| `pi-quiet-tools` | extension | Visually compacts collapsed built-in tool rows in the TUI without changing tool results sent to the model |
+| `rpiv-ask-user-question` | extension | Structured questionnaire the model can put to you when it would otherwise guess, with typed options instead of free-form replies |
+| `pi-execution-time` | extension | Shows prompt execution time in the footer while the agent works |
+| `pi-tool-renderer` | extension | Compact Claude/opencode-style renderers for Pi tools with rich diffs, apply_patch, generic/MCP rendering, and optional global chrome |
+| `pi-mcp-adapter` | extension | MCP (Model Context Protocol) adapter — connect external MCP servers as tools, with a bundled skill for MCP scripting |
+| `pi-plan-mode` | extension | Codex-like read-only `/plan` collaboration mode |
 
 ## Skills
 
